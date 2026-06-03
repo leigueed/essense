@@ -25,6 +25,7 @@ class _CadastroScreenState extends ConsumerState<CadastroScreen> {
     if (erro != null) {
       setState(() => _erro = erro);
     } else {
+      // ignore: use_build_context_synchronously
       Navigator.pop(context);
     }
   }
@@ -36,13 +37,13 @@ class _CadastroScreenState extends ConsumerState<CadastroScreen> {
         decoration: const BoxDecoration(
           gradient: RadialGradient(
             center: Alignment.center,
-            radius: 1.5,
+            radius: 1.2,
             colors: [AppTheme.surface, AppTheme.background],
           ),
         ),
         child: SafeArea(
           child: Padding(
-            padding: const EdgeInsets.all(32),
+            padding: const EdgeInsets.all(15),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.stretch,
               children: [
@@ -54,10 +55,10 @@ class _CadastroScreenState extends ConsumerState<CadastroScreen> {
                     onPressed: () => Navigator.pop(context),
                   ),
                 ),
-                const SizedBox(height: 16),
+                const SizedBox(height: 30),
                 Text('Criar conta',
-                    style: Theme.of(context).textTheme.headlineLarge),
-                const SizedBox(height: 32),
+                    style: Theme.of(context).textTheme.titleLarge),
+                const SizedBox(height: 20),
                 TextField(
                   controller: _nomeController,
                   decoration: const InputDecoration(
@@ -66,7 +67,7 @@ class _CadastroScreenState extends ConsumerState<CadastroScreen> {
                   ),
                   style: const TextStyle(color: AppTheme.textPrimary),
                 ),
-                const SizedBox(height: 16),
+                const SizedBox(height: 15),
                 TextField(
                   controller: _emailController,
                   decoration: const InputDecoration(
@@ -76,7 +77,7 @@ class _CadastroScreenState extends ConsumerState<CadastroScreen> {
                   ),
                   style: const TextStyle(color: AppTheme.textPrimary),
                 ),
-                const SizedBox(height: 16),
+                const SizedBox(height: 15),
                 TextField(
                   controller: _senhaController,
                   obscureText: true,
@@ -89,17 +90,17 @@ class _CadastroScreenState extends ConsumerState<CadastroScreen> {
                 ),
                 if (_erro != null)
                   Padding(
-                    padding: const EdgeInsets.only(top: 8),
-                    child: Text(_erro!,
-                        style: const TextStyle(color: Colors.redAccent)),
+                    padding: const EdgeInsets.only(top: 20),
+                    child:
+                        Text(_erro!, style: const TextStyle(color: Colors.red)),
                   ),
-                const SizedBox(height: 24),
+                const SizedBox(height: 25),
                 ElevatedButton(
                   onPressed: _cadastrar,
                   style: ElevatedButton.styleFrom(
                     backgroundColor: AppTheme.primary,
                     foregroundColor: Colors.black,
-                    padding: const EdgeInsets.symmetric(vertical: 16),
+                    padding: const EdgeInsets.symmetric(vertical: 18),
                   ),
                   child: const Text('Cadastrar'),
                 ),

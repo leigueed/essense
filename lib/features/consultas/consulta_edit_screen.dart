@@ -91,10 +91,10 @@ class _ConsultaEditScreenState extends ConsumerState<ConsultaEditScreen> {
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(
           content: const Text('Consulta atualizada com sucesso!'),
-          backgroundColor: AppTheme.primary.withValues(alpha: 0.8),
+          backgroundColor: AppTheme.textPrimary,
           behavior: SnackBarBehavior.floating,
           shape:
-              RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
+              RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
         ),
       );
     }
@@ -107,13 +107,13 @@ class _ConsultaEditScreenState extends ConsumerState<ConsultaEditScreen> {
         decoration: const BoxDecoration(
           gradient: RadialGradient(
             center: Alignment.center,
-            radius: 1.5,
+            radius: 0.5,
             colors: [AppTheme.surface, AppTheme.background],
           ),
         ),
         child: SafeArea(
           child: Padding(
-            padding: const EdgeInsets.all(32),
+            padding: const EdgeInsets.all(30),
             child: Column(
               children: [
                 Row(
@@ -133,12 +133,12 @@ class _ConsultaEditScreenState extends ConsumerState<ConsultaEditScreen> {
                     ),
                   ],
                 ),
-                const SizedBox(height: 12),
+                const SizedBox(height: 15),
                 LinearProgressIndicator(
                   value: (_currentPage + 1) / _perguntasOrdem.length,
-                  backgroundColor: Colors.white.withValues(alpha: 0.1),
+                  backgroundColor: Colors.white.withValues(alpha: 0.2),
                   valueColor:
-                      const AlwaysStoppedAnimation<Color>(AppTheme.primary),
+                      const AlwaysStoppedAnimation<Color>(AppTheme.surface),
                   minHeight: 2,
                 ),
                 const SizedBox(height: 40),
@@ -211,19 +211,19 @@ class _PaginaPergunta extends StatelessWidget {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Text(textoPergunta, style: Theme.of(context).textTheme.titleLarge),
-        const SizedBox(height: 12),
+        const SizedBox(height: 15),
         Text(
           'Atual: "$respostaAtual"',
           style: Theme.of(context)
               .textTheme
-              .bodyMedium
-              ?.copyWith(color: AppTheme.primary),
+              .bodyLarge
+              ?.copyWith(color: AppTheme.textPrimary),
         ),
-        const SizedBox(height: 32),
+        const SizedBox(height: 30),
         Expanded(
           child: ListView.separated(
             itemCount: opcoes.length,
-            separatorBuilder: (_, __) => const SizedBox(height: 16),
+            separatorBuilder: (_, __) => const SizedBox(height: 15),
             itemBuilder: (context, index) {
               final opcao = opcoes[index];
               final isSelecionada = opcao == respostaAtual;
@@ -232,24 +232,24 @@ class _PaginaPergunta extends StatelessWidget {
               return GestureDetector(
                 onTap: () => onSelected(opcao),
                 child: GlassCard(
-                  borderRadius: 24,
+                  borderRadius: 20,
                   child: Container(
                     decoration: isSelecionada
                         ? BoxDecoration(
-                            borderRadius: BorderRadius.circular(24),
+                            borderRadius: BorderRadius.circular(20),
                             border: Border.all(
-                                color: AppTheme.primary.withValues(alpha: 0.5),
+                                color: AppTheme.primary.withValues(alpha: 0.2),
                                 width: 1),
                           )
                         : null,
                     child: Padding(
-                      padding: const EdgeInsets.all(24),
+                      padding: const EdgeInsets.all(25),
                       child: Row(
                         children: [
                           Icon(
                             iconData,
                             color: isSelecionada
-                                ? AppTheme.primary
+                                ? AppTheme.surface
                                 : AppTheme.textSecondary,
                             size: 28,
                           ),
@@ -262,7 +262,7 @@ class _PaginaPergunta extends StatelessWidget {
                                   .bodyLarge
                                   ?.copyWith(
                                     color: isSelecionada
-                                        ? AppTheme.primary
+                                        ? AppTheme.surface
                                         : AppTheme.textPrimary,
                                     fontWeight: isSelecionada
                                         ? FontWeight.w600
@@ -272,7 +272,7 @@ class _PaginaPergunta extends StatelessWidget {
                           ),
                           if (isSelecionada)
                             const Icon(Icons.check_circle,
-                                color: AppTheme.primary, size: 24),
+                                color: AppTheme.surface, size: 24),
                         ],
                       ),
                     ),

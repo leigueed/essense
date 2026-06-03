@@ -19,7 +19,7 @@ class AuthNotifier extends StateNotifier<AuthState> {
       await _db.inserirUsuario(nome, email, senha);
       return null;
     } catch (e) {
-      return 'Erro ao cadastrar: email já existe!';
+      return 'Erro ao cadastrar, email já existe!';
     }
   }
 

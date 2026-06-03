@@ -24,7 +24,7 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
         decoration: const BoxDecoration(
           gradient: RadialGradient(
             center: Alignment.center,
-            radius: 1.5,
+            radius: 1,
             colors: [AppTheme.surface, AppTheme.background],
           ),
         ),
@@ -35,12 +35,12 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
               mainAxisAlignment: MainAxisAlignment.center,
               crossAxisAlignment: CrossAxisAlignment.stretch,
               children: [
-                Text('Essence',
+                Text('Essence!',
                     style: Theme.of(context).textTheme.headlineLarge),
-                const SizedBox(height: 8),
-                Text('Descubra a sua essência de perfume!',
+                const SizedBox(height: 9),
+                Text('Descubra a sua essência de perfume',
                     style: Theme.of(context).textTheme.bodyMedium),
-                const SizedBox(height: 48),
+                const SizedBox(height: 30),
                 TextField(
                   controller: _emailController,
                   decoration: const InputDecoration(
@@ -50,7 +50,7 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
                   ),
                   style: const TextStyle(color: AppTheme.textPrimary),
                 ),
-                const SizedBox(height: 16),
+                const SizedBox(height: 15),
                 TextField(
                   controller: _senhaController,
                   obscureText: true,
@@ -67,17 +67,17 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
                     child: Text(_erro!,
                         style: const TextStyle(color: Colors.redAccent)),
                   ),
-                const SizedBox(height: 24),
+                const SizedBox(height: 25),
                 ElevatedButton(
                   onPressed: _login,
                   style: ElevatedButton.styleFrom(
                     backgroundColor: AppTheme.primary,
                     foregroundColor: Colors.black,
-                    padding: const EdgeInsets.symmetric(vertical: 16),
+                    padding: const EdgeInsets.symmetric(vertical: 20),
                   ),
                   child: const Text('Entrar'),
                 ),
-                const SizedBox(height: 16),
+                const SizedBox(height: 15),
                 TextButton(
                   onPressed: () => Navigator.push(
                       context,

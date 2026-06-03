@@ -18,7 +18,7 @@ class AppConstants {
 
   static IconData getIcon(String chave) {
     switch (chave) {
-      case 'Poderosa':
+      case 'Poderoso':
         return Icons.local_fire_department;
       case 'Serena':
         return Icons.nightlight_round;

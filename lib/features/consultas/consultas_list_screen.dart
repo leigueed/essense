@@ -33,13 +33,13 @@ class _ConsultasListScreenState extends ConsumerState<ConsultasListScreen> {
         decoration: const BoxDecoration(
           gradient: RadialGradient(
             center: Alignment.center,
-            radius: 1.5,
+            radius: 1.2,
             colors: [AppTheme.surface, AppTheme.background],
           ),
         ),
         child: SafeArea(
           child: Padding(
-            padding: const EdgeInsets.all(32),
+            padding: const EdgeInsets.all(30),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
@@ -52,15 +52,16 @@ class _ConsultasListScreenState extends ConsumerState<ConsultasListScreen> {
                     ),
                     const Spacer(),
                     Text('Minhas Consultas',
-                        style: Theme.of(context).textTheme.headlineLarge),
+                        style: Theme.of(context).textTheme.titleLarge),
                   ],
                 ),
-                const SizedBox(height: 24),
+                const SizedBox(height: 25),
                 Expanded(
                   child: state.consultas.isEmpty
                       ? Center(
                           child: Text('Nenhuma consulta ainda.',
-                              style: Theme.of(context).textTheme.bodyMedium))
+                              style: Theme.of(context).textTheme.bodyMedium),
+                        )
                       : ListView.builder(
                           itemCount: state.consultas.length,
                           itemBuilder: (context, index) {
@@ -68,12 +69,12 @@ class _ConsultasListScreenState extends ConsumerState<ConsultasListScreen> {
                             final dataFormatada = DateFormat('dd/MM/yy – HH:mm')
                                 .format(consulta.data);
                             return Padding(
-                              padding: const EdgeInsets.only(bottom: 16),
+                              padding: const EdgeInsets.only(bottom: 18),
                               child: Container(
-                                padding: const EdgeInsets.all(20),
+                                padding: const EdgeInsets.all(18),
                                 decoration: BoxDecoration(
-                                  color: Colors.white.withValues(alpha: 0.04),
-                                  borderRadius: BorderRadius.circular(24),
+                                  color: Colors.white.withValues(alpha: 0.2),
+                                  borderRadius: BorderRadius.circular(20),
                                   border:
                                       Border.all(color: AppTheme.glassBorder),
                                 ),
@@ -92,15 +93,14 @@ class _ConsultasListScreenState extends ConsumerState<ConsultasListScreen> {
                                           children: [
                                             IconButton(
                                               icon: const Icon(Icons.edit,
-                                                  color: AppTheme.primary,
-                                                  size: 20),
+                                                  color: AppTheme.textPrimary,
+                                                  size: 18),
                                               onPressed: () =>
                                                   _editar(consulta),
                                             ),
                                             IconButton(
                                               icon: const Icon(Icons.delete,
-                                                  color: Colors.redAccent,
-                                                  size: 20),
+                                                  color: Colors.red, size: 18),
                                               onPressed: () =>
                                                   _confirmarExclusao(
                                                       consulta.id!),
@@ -109,20 +109,28 @@ class _ConsultasListScreenState extends ConsumerState<ConsultasListScreen> {
                                         ),
                                       ],
                                     ),
-                                    const SizedBox(height: 8),
+                                    const SizedBox(height: 12),
                                     Text(
                                       '${consulta.emocao} · ${consulta.lugar} · ${consulta.elemento} · ${consulta.cor}',
-                                      style:
-                                          Theme.of(context).textTheme.bodyLarge,
+                                      style: Theme.of(context)
+                                          .textTheme
+                                          .bodyMedium,
                                     ),
-                                    const SizedBox(height: 8),
+                                    const SizedBox(height: 12),
                                     Text(
                                       '${consulta.resultadoIds.length} perfumes recomendados',
                                       style: Theme.of(context)
                                           .textTheme
                                           .bodyMedium,
                                     ),
+                                    const SizedBox(height: 18),
                                     TextButton(
+                                      style: TextButton.styleFrom(
+                                        backgroundColor: AppTheme.surface,
+                                        foregroundColor: AppTheme.textPrimary,
+                                        padding: const EdgeInsets.symmetric(
+                                            vertical: 20, horizontal: 20),
+                                      ),
                                       onPressed: () =>
                                           _verResultados(consulta.resultadoIds),
                                       child: const Text('Ver recomendação'),
@@ -159,7 +167,7 @@ class _ConsultasListScreenState extends ConsumerState<ConsultasListScreen> {
         title: const Text('Excluir consulta?',
             style: TextStyle(color: AppTheme.textPrimary)),
         content: const Text('Essa ação não pode ser desfeita.',
-            style: TextStyle(color: AppTheme.textSecondary)),
+            style: TextStyle(color: AppTheme.textPrimary)),
         actions: [
           TextButton(
             onPressed: () => Navigator.pop(ctx),
