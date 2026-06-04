@@ -15,87 +15,101 @@ class PerfumeCard extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final favoritesState = ref.watch(favoritesProvider);
-    final isFavorited = favoritesState.favoritosIds.contains(perfume.id);
+    favoritesState.favoritosIds.contains(perfume.id);
 
-    return GestureDetector(
-      onTap: () {
-        Navigator.push(
-          context,
-          MaterialPageRoute(builder: (_) => DetailScreen(perfume: perfume)),
-        );
-      },
-      child: SizedBox(
-        width: 260,
-        child: GlassCard(
-          borderRadius: 24,
-          child: Container(
-            decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(24),
-              gradient: LinearGradient(
-                begin: Alignment.topLeft,
-                end: Alignment.bottomRight,
-                colors: [
-                  Color(int.parse('0xFF${perfume.corHex.substring(1)}'))
-                      .withValues(alpha: 0.25),
-                  Colors.transparent,
-                ],
-              ),
-            ),
-            child: Padding(
-              padding: const EdgeInsets.all(24),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
+    return GlassCard(
+      borderRadius: 20,
+      child: Container(
+        decoration: BoxDecoration(
+          borderRadius: BorderRadius.circular(20),
+          gradient: LinearGradient(
+            begin: Alignment.topLeft,
+            end: Alignment.bottomRight,
+            colors: [
+              Color(int.parse('0xFF${perfume.corHex.substring(1)}'))
+                  .withValues(alpha: 1),
+              Colors.transparent,
+            ],
+          ),
+        ),
+        child: Padding(
+          padding: const EdgeInsets.all(25),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              // Linha superior: nome + coração
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      Expanded(
-                        child: Text(
-                          perfume.nome,
-                          style: Theme.of(context).textTheme.titleLarge,
-                          maxLines: 1,
-                          overflow: TextOverflow.ellipsis,
-                        ),
-                      ),
-                      GestureDetector(
-                        onTap: () {
-                          ref
-                              .read(favoritesProvider.notifier)
-                              .toggleFavorite(perfume.id);
-                        },
-                        child: Icon(
-                          isFavorited ? Icons.favorite : Icons.favorite_border,
-                          color: isFavorited
-                              ? AppTheme.primary
-                              : AppTheme.textSecondary,
-                          size: 20,
-                        ),
-                      ),
-                    ],
-                  ),
-                  const SizedBox(height: 4),
-                  Text(perfume.marca,
-                      style: Theme.of(context).textTheme.bodyMedium),
-                  const SizedBox(height: 12),
-                  Text(
-                    perfume.frasePoetica,
-                    style: const TextStyle(
-                      fontFamily: 'Inter',
-                      fontSize: 14,
-                      fontStyle: FontStyle.italic,
-                      color: AppTheme.textSecondary,
-                      height: 1.4,
+                  Expanded(
+                    child: Text(
+                      perfume.nome,
+                      style: Theme.of(context).textTheme.bodyLarge,
+                      maxLines: 1,
+                      overflow: TextOverflow.ellipsis,
                     ),
                   ),
-                  const Spacer(),
-                  NoteBar(
-                    topNote: perfume.notasTopo,
-                    heartNote: perfume.notasCoracao,
-                    baseNote: perfume.notasFundo,
-                  ),
                 ],
               ),
-            ),
+              const SizedBox(height: 5),
+              // Marca
+              Text(perfume.marca,
+                  style: Theme.of(context).textTheme.bodyMedium),
+              const SizedBox(height: 15),
+              // Frase poética
+              Text(
+                perfume.frasePoetica,
+                style: const TextStyle(
+                  fontFamily: 'Inter',
+                  fontSize: 12,
+                  fontStyle: FontStyle.italic,
+                  color: AppTheme.textSecondary,
+                  height: 1.5,
+                ),
+              ),
+              const SizedBox(height: 15),
+              // Pirâmide olfativa
+              NoteBar(
+                topNote: perfume.notasTopo,
+                heartNote: perfume.notasCoracao,
+                baseNote: perfume.notasFundo,
+              ),
+              const SizedBox(height: 15),
+              // 🔘 BOTÃO "VER DETALHES"
+              const SizedBox(height: 10),
+              // Botão "Ver detalhes" centralizado e maior
+              Center(
+                child: TextButton.icon(
+                  onPressed: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: (_) => DetailScreen(perfume: perfume)),
+                    );
+                  },
+                  icon: const Icon(Icons.info_outline,
+                      color: AppTheme.primary, size: 18),
+                  label: const Text(
+                    'Ver detalhes',
+                    style: TextStyle(
+                      color: AppTheme.primary,
+                      fontSize: 14,
+                      fontWeight: FontWeight.w400,
+                    ),
+                  ),
+                  style: TextButton.styleFrom(
+                    padding: const EdgeInsets.symmetric(
+                        horizontal: 20, vertical: 15),
+                    backgroundColor: AppTheme.primary.withValues(alpha: 0.1),
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(20),
+                      side: BorderSide(
+                          color: AppTheme.primary.withValues(alpha: 0.5)),
+                    ),
+                  ),
+                ),
+              ),
+            ],
           ),
         ),
       ),

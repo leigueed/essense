@@ -113,17 +113,19 @@ class _QuestionScreenState extends ConsumerState<QuestionScreen> {
         ),
         child: SafeArea(
           child: Padding(
-            padding: const EdgeInsets.all(32),
+            padding: const EdgeInsets.fromLTRB(16, 22, 16, 24),
             child: Column(
               children: [
+                // Barra de progresso
                 LinearProgressIndicator(
                   value: (_currentPage + 1) / perguntasOrdem.length,
-                  backgroundColor: Colors.white.withValues(alpha: 0.1),
+                  backgroundColor:
+                      AppTheme.textSecondary.withValues(alpha: 0.2),
                   valueColor:
                       const AlwaysStoppedAnimation<Color>(AppTheme.primary),
                   minHeight: 2,
                 ),
-                const SizedBox(height: 40),
+                const SizedBox(height: 30),
                 Expanded(
                   child: PageView.builder(
                     controller: _pageController,
@@ -161,36 +163,46 @@ class _QuestionPage extends StatelessWidget {
         ? AppConstants.emocoes
         : AppConstants.perguntas[pergunta]!;
     final textoPergunta = {
-      'emocao': 'Como você quer\nse sentir hoje?',
+      'emocao': 'Qual é a emoção principal que você deseja transmitir?',
       'lugar': 'Qual lugar\ncombina com esse sentimento?',
-      'elemento': 'Qual elemento\nte veste melhor?',
+      'elemento': 'Qual elemento\nte representa melhor?',
       'cor': 'Uma cor que\ntraduz esse momento?',
     }[pergunta]!;
 
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Text(textoPergunta, style: Theme.of(context).textTheme.titleLarge),
-        const SizedBox(height: 40),
+        Text(
+          textoPergunta,
+          style: Theme.of(context).textTheme.bodyLarge?.copyWith(
+                color: AppTheme.textSecondary,
+              ),
+        ),
+        const SizedBox(height: 30),
         Expanded(
           child: ListView.separated(
             itemCount: opcoes.length,
-            separatorBuilder: (_, __) => const SizedBox(height: 16),
+            separatorBuilder: (_, __) => const SizedBox(height: 15),
             itemBuilder: (context, index) {
               final opcao = opcoes[index];
               final iconData = AppConstants.getIcon(opcao);
               return GestureDetector(
                 onTap: () => onSelected(opcao),
                 child: GlassCard(
-                  borderRadius: 24,
+                  borderRadius: 20,
                   child: Padding(
                     padding: const EdgeInsets.all(24),
                     child: Row(
                       children: [
-                        Icon(iconData, color: AppTheme.primary, size: 28),
+                        Icon(iconData, color: AppTheme.textSecondary, size: 24),
                         const SizedBox(width: 20),
-                        Text(opcao,
-                            style: Theme.of(context).textTheme.bodyLarge),
+                        Text(
+                          opcao,
+                          style:
+                              Theme.of(context).textTheme.bodyLarge?.copyWith(
+                                    color: AppTheme.textSecondary,
+                                  ),
+                        ),
                       ],
                     ),
                   ),

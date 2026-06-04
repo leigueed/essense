@@ -1,7 +1,7 @@
-import 'package:essence/core/theme.dart';
-import 'package:essence/features/auth/auth_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:essence/core/theme.dart';
+import 'package:essence/features/auth/auth_provider.dart';
 
 class CadastroScreen extends ConsumerStatefulWidget {
   const CadastroScreen({super.key});
@@ -25,8 +25,9 @@ class _CadastroScreenState extends ConsumerState<CadastroScreen> {
     if (erro != null) {
       setState(() => _erro = erro);
     } else {
-      // ignore: use_build_context_synchronously
-      Navigator.pop(context);
+      if (mounted) {
+        Navigator.pop(context);
+      }
     }
   }
 
@@ -37,70 +38,102 @@ class _CadastroScreenState extends ConsumerState<CadastroScreen> {
         decoration: const BoxDecoration(
           gradient: RadialGradient(
             center: Alignment.center,
-            radius: 1.2,
+            radius: 1.5,
             colors: [AppTheme.surface, AppTheme.background],
           ),
         ),
         child: SafeArea(
           child: Padding(
-            padding: const EdgeInsets.all(15),
+            padding: const EdgeInsets.fromLTRB(16, 22, 16, 24),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.stretch,
               children: [
-                Align(
-                  alignment: Alignment.centerLeft,
-                  child: IconButton(
-                    icon: const Icon(Icons.arrow_back,
-                        color: AppTheme.textPrimary),
-                    onPressed: () => Navigator.pop(context),
-                  ),
+                Row(
+                  children: [
+                    IconButton(
+                      icon: const Icon(Icons.arrow_back,
+                          color: AppTheme.textSecondary),
+                      onPressed: () => Navigator.pop(context),
+                      padding: EdgeInsets.zero,
+                      constraints: const BoxConstraints(),
+                    ),
+                    const SizedBox(width: 22),
+                    Text(
+                      'Criar conta',
+                      style: Theme.of(context).textTheme.titleLarge?.copyWith(
+                            color: AppTheme.textSecondary,
+                          ),
+                    ),
+                  ],
                 ),
-                const SizedBox(height: 30),
-                Text('Criar conta',
-                    style: Theme.of(context).textTheme.titleLarge),
-                const SizedBox(height: 20),
+                const SizedBox(height: 32),
                 TextField(
                   controller: _nomeController,
-                  decoration: const InputDecoration(
+                  decoration: InputDecoration(
                     labelText: 'Nome',
-                    prefixIcon: Icon(Icons.person, color: AppTheme.primary),
+                    labelStyle: const TextStyle(color: AppTheme.textSecondary),
+                    prefixIcon:
+                        const Icon(Icons.person, color: AppTheme.textSecondary),
+                    enabledBorder: UnderlineInputBorder(
+                      borderSide: BorderSide(
+                          color: AppTheme.textSecondary.withValues(alpha: 0.4)),
+                    ),
+                    focusedBorder: const UnderlineInputBorder(
+                      borderSide: BorderSide(color: AppTheme.primary),
+                    ),
                   ),
                   style: const TextStyle(color: AppTheme.textPrimary),
                 ),
-                const SizedBox(height: 15),
+                const SizedBox(height: 20),
                 TextField(
                   controller: _emailController,
-                  decoration: const InputDecoration(
+                  decoration: InputDecoration(
                     labelText: 'Email',
-                    prefixIcon:
-                        Icon(Icons.email_outlined, color: AppTheme.primary),
+                    labelStyle: const TextStyle(color: AppTheme.textSecondary),
+                    prefixIcon: const Icon(Icons.email_outlined,
+                        color: AppTheme.textSecondary),
+                    enabledBorder: UnderlineInputBorder(
+                      borderSide: BorderSide(
+                          color: AppTheme.textSecondary.withValues(alpha: 0.4)),
+                    ),
+                    focusedBorder: const UnderlineInputBorder(
+                      borderSide: BorderSide(color: AppTheme.primary),
+                    ),
                   ),
                   style: const TextStyle(color: AppTheme.textPrimary),
                 ),
-                const SizedBox(height: 15),
+                const SizedBox(height: 20),
                 TextField(
                   controller: _senhaController,
                   obscureText: true,
-                  decoration: const InputDecoration(
+                  decoration: InputDecoration(
                     labelText: 'Senha',
-                    prefixIcon:
-                        Icon(Icons.lock_outline, color: AppTheme.primary),
+                    labelStyle: const TextStyle(color: AppTheme.textSecondary),
+                    prefixIcon: const Icon(Icons.lock_outline,
+                        color: AppTheme.textSecondary),
+                    enabledBorder: UnderlineInputBorder(
+                      borderSide: BorderSide(
+                          color: AppTheme.textSecondary.withValues(alpha: 0.4)),
+                    ),
+                    focusedBorder: const UnderlineInputBorder(
+                      borderSide: BorderSide(color: AppTheme.primary),
+                    ),
                   ),
                   style: const TextStyle(color: AppTheme.textPrimary),
                 ),
                 if (_erro != null)
                   Padding(
-                    padding: const EdgeInsets.only(top: 20),
-                    child:
-                        Text(_erro!, style: const TextStyle(color: Colors.red)),
+                    padding: const EdgeInsets.only(top: 12),
+                    child: Text(_erro!,
+                        style: const TextStyle(color: Colors.redAccent)),
                   ),
-                const SizedBox(height: 25),
+                const SizedBox(height: 30),
                 ElevatedButton(
                   onPressed: _cadastrar,
                   style: ElevatedButton.styleFrom(
-                    backgroundColor: AppTheme.primary,
-                    foregroundColor: Colors.black,
-                    padding: const EdgeInsets.symmetric(vertical: 18),
+                    backgroundColor: AppTheme.textSecondary,
+                    foregroundColor: AppTheme.background,
+                    padding: const EdgeInsets.symmetric(vertical: 16),
                   ),
                   child: const Text('Cadastrar'),
                 ),

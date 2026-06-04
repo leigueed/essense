@@ -1,9 +1,9 @@
+import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:essence/core/theme.dart';
 import 'package:essence/features/auth/auth_provider.dart';
 import 'package:essence/features/auth/cadastro_screen.dart';
 import 'package:essence/features/home/home_screen.dart';
-import 'package:flutter/material.dart';
-import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 class LoginScreen extends ConsumerStatefulWidget {
   const LoginScreen({super.key});
@@ -24,7 +24,7 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
         decoration: const BoxDecoration(
           gradient: RadialGradient(
             center: Alignment.center,
-            radius: 1,
+            radius: 1.5,
             colors: [AppTheme.surface, AppTheme.background],
           ),
         ),
@@ -35,29 +35,57 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
               mainAxisAlignment: MainAxisAlignment.center,
               crossAxisAlignment: CrossAxisAlignment.stretch,
               children: [
-                Text('Essence!',
-                    style: Theme.of(context).textTheme.headlineLarge),
-                const SizedBox(height: 9),
-                Text('Descubra a sua essência de perfume',
-                    style: Theme.of(context).textTheme.bodyMedium),
-                const SizedBox(height: 30),
+                // Título "Essence" em textSecondary
+                Text(
+                  'Essence!',
+                  style: Theme.of(context).textTheme.headlineLarge?.copyWith(
+                        color: AppTheme.textSecondary,
+                      ),
+                ),
+                const SizedBox(height: 8),
+                // Subtítulo em textSecondary
+                Text(
+                  'Descubra a sua essência de perfume',
+                  style: Theme.of(context).textTheme.bodyMedium?.copyWith(
+                        color: AppTheme.textSecondary,
+                      ),
+                ),
+                const SizedBox(height: 40),
+                // Campo de email
                 TextField(
                   controller: _emailController,
-                  decoration: const InputDecoration(
+                  decoration: InputDecoration(
                     labelText: 'Email',
-                    prefixIcon:
-                        Icon(Icons.email_outlined, color: AppTheme.primary),
+                    labelStyle: const TextStyle(color: AppTheme.textSecondary),
+                    prefixIcon: const Icon(Icons.email_outlined,
+                        color: AppTheme.textSecondary),
+                    enabledBorder: UnderlineInputBorder(
+                      borderSide: BorderSide(
+                          color: AppTheme.textSecondary.withValues(alpha: 0.4)),
+                    ),
+                    focusedBorder: const UnderlineInputBorder(
+                      borderSide: BorderSide(color: AppTheme.primary),
+                    ),
                   ),
                   style: const TextStyle(color: AppTheme.textPrimary),
                 ),
-                const SizedBox(height: 15),
+                const SizedBox(height: 20),
+                // Campo de senha
                 TextField(
                   controller: _senhaController,
                   obscureText: true,
-                  decoration: const InputDecoration(
+                  decoration: InputDecoration(
                     labelText: 'Senha',
-                    prefixIcon:
-                        Icon(Icons.lock_outline, color: AppTheme.primary),
+                    labelStyle: const TextStyle(color: AppTheme.textSecondary),
+                    prefixIcon: const Icon(Icons.lock_outline,
+                        color: AppTheme.textSecondary),
+                    enabledBorder: UnderlineInputBorder(
+                      borderSide: BorderSide(
+                          color: AppTheme.textSecondary.withValues(alpha: 0.4)),
+                    ),
+                    focusedBorder: const UnderlineInputBorder(
+                      borderSide: BorderSide(color: AppTheme.primary),
+                    ),
                   ),
                   style: const TextStyle(color: AppTheme.textPrimary),
                 ),
@@ -67,23 +95,26 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
                     child: Text(_erro!,
                         style: const TextStyle(color: Colors.redAccent)),
                   ),
-                const SizedBox(height: 25),
+                const SizedBox(height: 30),
                 ElevatedButton(
                   onPressed: _login,
                   style: ElevatedButton.styleFrom(
-                    backgroundColor: AppTheme.primary,
-                    foregroundColor: Colors.black,
-                    padding: const EdgeInsets.symmetric(vertical: 20),
+                    backgroundColor: AppTheme.textSecondary,
+                    foregroundColor: AppTheme.background,
+                    padding: const EdgeInsets.symmetric(vertical: 16),
                   ),
                   child: const Text('Entrar'),
                 ),
-                const SizedBox(height: 15),
+                const SizedBox(height: 16),
                 TextButton(
                   onPressed: () => Navigator.push(
                       context,
                       MaterialPageRoute(
                           builder: (_) => const CadastroScreen())),
-                  child: const Text('Criar uma conta'),
+                  child: const Text(
+                    'Criar uma conta',
+                    style: TextStyle(color: AppTheme.textSecondary),
+                  ),
                 ),
               ],
             ),

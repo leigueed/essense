@@ -2,12 +2,12 @@ import 'package:flutter/material.dart';
 
 class AppConstants {
   static const List<String> emocoes = [
-    'Poderosa',
-    'Serena',
-    'Sedutora',
-    'Nostálgica',
-    'Aventureira',
-    'Misteriosa',
+    'Poder',
+    'Calma',
+    'Sedução',
+    'Nostalgia',
+    'Audácia',
+    'Mistério',
   ];
 
   static const Map<String, List<String>> perguntas = {
@@ -18,17 +18,17 @@ class AppConstants {
 
   static IconData getIcon(String chave) {
     switch (chave) {
-      case 'Poderoso':
+      case 'Poder':
         return Icons.local_fire_department;
-      case 'Serena':
+      case 'Calma':
         return Icons.nightlight_round;
-      case 'Sedutora':
+      case 'Sedução':
         return Icons.favorite;
-      case 'Nostálgica':
+      case 'Nostalgia':
         return Icons.history;
-      case 'Aventureira':
+      case 'Audácia':
         return Icons.explore;
-      case 'Misteriosa':
+      case 'Mistério':
         return Icons.visibility_off;
       case 'Praia':
         return Icons.beach_access;

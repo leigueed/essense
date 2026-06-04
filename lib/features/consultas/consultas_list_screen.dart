@@ -33,13 +33,13 @@ class _ConsultasListScreenState extends ConsumerState<ConsultasListScreen> {
         decoration: const BoxDecoration(
           gradient: RadialGradient(
             center: Alignment.center,
-            radius: 1.2,
+            radius: 1.5,
             colors: [AppTheme.surface, AppTheme.background],
           ),
         ),
         child: SafeArea(
           child: Padding(
-            padding: const EdgeInsets.all(30),
+            padding: const EdgeInsets.fromLTRB(16, 22, 16, 24),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
@@ -47,20 +47,31 @@ class _ConsultasListScreenState extends ConsumerState<ConsultasListScreen> {
                   children: [
                     IconButton(
                       icon: const Icon(Icons.arrow_back,
-                          color: AppTheme.textPrimary),
+                          color: AppTheme.textSecondary),
                       onPressed: () => Navigator.pop(context),
+                      padding: EdgeInsets.zero,
+                      constraints: const BoxConstraints(),
                     ),
-                    const Spacer(),
-                    Text('Minhas Consultas',
-                        style: Theme.of(context).textTheme.titleLarge),
+                    const SizedBox(width: 22),
+                    Text(
+                      'Minhas Consultas',
+                      style: Theme.of(context).textTheme.titleLarge?.copyWith(
+                            color: AppTheme.textSecondary,
+                          ),
+                    ),
                   ],
                 ),
-                const SizedBox(height: 25),
+                const SizedBox(height: 24),
                 Expanded(
                   child: state.consultas.isEmpty
                       ? Center(
-                          child: Text('Nenhuma consulta ainda.',
-                              style: Theme.of(context).textTheme.bodyMedium),
+                          child: Text(
+                            'Nenhuma consulta ainda.',
+                            style: Theme.of(context)
+                                .textTheme
+                                .bodyMedium
+                                ?.copyWith(color: AppTheme.textSecondary),
+                          ),
                         )
                       : ListView.builder(
                           itemCount: state.consultas.length,
@@ -69,12 +80,12 @@ class _ConsultasListScreenState extends ConsumerState<ConsultasListScreen> {
                             final dataFormatada = DateFormat('dd/MM/yy – HH:mm')
                                 .format(consulta.data);
                             return Padding(
-                              padding: const EdgeInsets.only(bottom: 18),
+                              padding: const EdgeInsets.only(bottom: 16),
                               child: Container(
-                                padding: const EdgeInsets.all(18),
+                                padding: const EdgeInsets.all(20),
                                 decoration: BoxDecoration(
-                                  color: Colors.white.withValues(alpha: 0.2),
-                                  borderRadius: BorderRadius.circular(20),
+                                  color: Colors.white.withValues(alpha: 0.3),
+                                  borderRadius: BorderRadius.circular(24),
                                   border:
                                       Border.all(color: AppTheme.glassBorder),
                                 ),
@@ -85,22 +96,28 @@ class _ConsultasListScreenState extends ConsumerState<ConsultasListScreen> {
                                       mainAxisAlignment:
                                           MainAxisAlignment.spaceBetween,
                                       children: [
-                                        Text(dataFormatada,
-                                            style: Theme.of(context)
-                                                .textTheme
-                                                .labelSmall),
+                                        Text(
+                                          dataFormatada,
+                                          style: Theme.of(context)
+                                              .textTheme
+                                              .labelSmall
+                                              ?.copyWith(
+                                                  color:
+                                                      AppTheme.textSecondary),
+                                        ),
                                         Row(
                                           children: [
                                             IconButton(
                                               icon: const Icon(Icons.edit,
-                                                  color: AppTheme.textPrimary,
+                                                  color: AppTheme.textSecondary,
                                                   size: 18),
                                               onPressed: () =>
                                                   _editar(consulta),
                                             ),
                                             IconButton(
                                               icon: const Icon(Icons.delete,
-                                                  color: Colors.red, size: 18),
+                                                  color: Colors.redAccent,
+                                                  size: 18),
                                               onPressed: () =>
                                                   _confirmarExclusao(
                                                       consulta.id!),
@@ -114,26 +131,45 @@ class _ConsultasListScreenState extends ConsumerState<ConsultasListScreen> {
                                       '${consulta.emocao} · ${consulta.lugar} · ${consulta.elemento} · ${consulta.cor}',
                                       style: Theme.of(context)
                                           .textTheme
-                                          .bodyMedium,
+                                          .bodyLarge
+                                          ?.copyWith(
+                                              color: AppTheme.textSecondary),
                                     ),
-                                    const SizedBox(height: 12),
+                                    const SizedBox(height: 8),
                                     Text(
                                       '${consulta.resultadoIds.length} perfumes recomendados',
                                       style: Theme.of(context)
                                           .textTheme
-                                          .bodyMedium,
+                                          .bodyMedium
+                                          ?.copyWith(
+                                              color: AppTheme.textSecondary),
                                     ),
-                                    const SizedBox(height: 18),
-                                    TextButton(
-                                      style: TextButton.styleFrom(
-                                        backgroundColor: AppTheme.surface,
-                                        foregroundColor: AppTheme.textPrimary,
-                                        padding: const EdgeInsets.symmetric(
-                                            vertical: 20, horizontal: 20),
+                                    const SizedBox(height: 19),
+                                    Center(
+                                      child: TextButton(
+                                        style: TextButton.styleFrom(
+                                          backgroundColor: AppTheme
+                                              .textSecondary
+                                              .withValues(alpha: 0.1),
+                                          foregroundColor:
+                                              AppTheme.textSecondary,
+                                          padding: const EdgeInsets.symmetric(
+                                              horizontal: 24, vertical: 15),
+                                          shape: RoundedRectangleBorder(
+                                            borderRadius:
+                                                BorderRadius.circular(20),
+                                          ),
+                                        ),
+                                        onPressed: () => _verResultados(
+                                            consulta.resultadoIds),
+                                        child: const Text(
+                                          'Ver recomendação',
+                                          style: TextStyle(
+                                            fontSize: 14,
+                                            fontWeight: FontWeight.w500,
+                                          ),
+                                        ),
                                       ),
-                                      onPressed: () =>
-                                          _verResultados(consulta.resultadoIds),
-                                      child: const Text('Ver recomendação'),
                                     ),
                                   ],
                                 ),
@@ -163,15 +199,16 @@ class _ConsultasListScreenState extends ConsumerState<ConsultasListScreen> {
     showDialog(
       context: context,
       builder: (ctx) => AlertDialog(
-        backgroundColor: AppTheme.surface,
+        backgroundColor: AppTheme.primary,
         title: const Text('Excluir consulta?',
-            style: TextStyle(color: AppTheme.textPrimary)),
+            style: TextStyle(color: AppTheme.textSecondary)),
         content: const Text('Essa ação não pode ser desfeita.',
-            style: TextStyle(color: AppTheme.textPrimary)),
+            style: TextStyle(color: AppTheme.textSecondary)),
         actions: [
           TextButton(
             onPressed: () => Navigator.pop(ctx),
-            child: const Text('Cancelar'),
+            child: const Text('Cancelar',
+                style: TextStyle(color: AppTheme.textSecondary)),
           ),
           TextButton(
             onPressed: () {

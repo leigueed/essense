@@ -2,12 +2,12 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 class AppTheme {
-  static const Color primary = Color(0xFFE6E5C4);
-  static const Color secondary = Color(0xFFB8860B);
-  static const Color background = Color(0xFFD6D1AF);
-  static const Color surface = Color(0xFFE47267);
-  static const Color textPrimary = Color(0xFFF5F0E8);
-  static const Color textSecondary = Color(0xFFFFFFFF);
+  static const Color primary = Color(0xFFe7ddd3);
+  static const Color secondary = Color(0xFF29251c);
+  static const Color background = Color(0xFFc0c2bd);
+  static const Color surface = Color(0xFF9c9994);
+  static const Color textPrimary = Color(0xFFFfffff);
+  static const Color textSecondary = Color(0xFF000000);
   static const Color glassBorder = Color(0x14FFFFFF);
   static ThemeData get darkTheme {
     return ThemeData(
@@ -36,7 +36,7 @@ class AppTheme {
         headlineLarge: GoogleFonts.inter(
             fontSize: 27, fontWeight: FontWeight.w500, color: textPrimary),
         titleLarge: GoogleFonts.inter(
-            fontSize: 24, fontWeight: FontWeight.w500, color: textPrimary),
+            fontSize: 22, fontWeight: FontWeight.w500, color: textPrimary),
         bodyLarge: GoogleFonts.inter(
             fontSize: 16, fontWeight: FontWeight.w400, color: textPrimary),
         bodyMedium: GoogleFonts.inter(
