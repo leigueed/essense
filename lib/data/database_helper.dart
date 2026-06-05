@@ -1,7 +1,8 @@
+import 'dart:convert';
+import 'dart:io' show Platform, Directory;
 import 'package:sqflite/sqflite.dart';
 import 'package:path/path.dart';
 import 'package:crypto/crypto.dart';
-import 'dart:convert';
 
 class DatabaseHelper {
   static final DatabaseHelper _instance = DatabaseHelper._();
@@ -18,9 +19,16 @@ class DatabaseHelper {
   }
 
   Future<Database> _initDatabase() async {
-    final path = join(await getDatabasesPath(), 'essence.db');
+    final home =
+        Platform.environment['HOME'] ?? '/home/${Platform.environment['USER']}';
+    final dbDir = Directory('$home/.essence_data');
+    if (!await dbDir.exists()) {
+      await dbDir.create(recursive: true);
+    }
+    final dbPath = join(dbDir.path, 'essence.db');
+
     return await openDatabase(
-      path,
+      dbPath,
       version: 1,
       onCreate: _onCreate,
     );
