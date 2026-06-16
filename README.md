@@ -1,17 +1,41 @@
-# essense
+# Essence
 
-A new Flutter project.
+Descobridor de perfumes — app Flutter que sugere fragrâncias com base no seu momento (emoção, lugar, elemento, cor). Os dados ficam salvos localmente em SQLite e funcionam offline.
 
-## Getting Started
+## Pré-requisitos
 
-This project is a starting point for a Flutter application.
+- Flutter instalado.
+- Um dispositivo ou emulador configurado (Android, iOS, web, Linux, macOS ou Windows)
 
-A few resources to get you started if this is your first Flutter project:
+## Rodar o app
 
-- [Learn Flutter](https://docs.flutter.dev/get-started/learn-flutter)
-- [Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Flutter learning resources](https://docs.flutter.dev/reference/learning-resources)
+```bash
+# 1. Clonar o repositório
+git clone https://github.com/leigueed/essense.git
 
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+# 2. Entrar no diretório do projeto
+cd essense
+
+# 3. Baixar as dependências
+flutter pub get
+
+# 4. Rodar em modo debug
+flutter run
+```
+
+## Estrutura
+```bash
+lib/
+├── main.dart              — entrada do app
+├── app.dart               — widget raiz
+├── core/                  — tema, cores, constantes
+├── data/
+│   ├── database_helper.dart  — banco SQLite
+│   ├── perfume_repository.dart
+│   ├── perfumes_data.dart
+│   └── models/               — usuario, consulta, perfume
+├── features/
+│   ├── auth/                 — cadastro / login
+│   ├── consultas/            — histórico de consultas
+└── shared/                   — widgets reutilizáveis
+```
