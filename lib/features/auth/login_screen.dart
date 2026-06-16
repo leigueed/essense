@@ -37,7 +37,7 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
               children: [
                 // Título "Essence" em textSecondary
                 Text(
-                  'Essence!',
+                  'Essense!',
                   style: Theme.of(context).textTheme.headlineLarge?.copyWith(
                         color: AppTheme.textSecondary,
                       ),
